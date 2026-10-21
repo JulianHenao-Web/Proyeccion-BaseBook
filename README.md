@@ -38,6 +38,9 @@ Prueba-Inicial-BaseBook/
     └── datos/
 ```
 
+El núcleo de negocio ya incluye tipos y reglas iniciales para catálogo,
+ejemplares, préstamos, reservas y multas.
+
 ## Cómo trabajar
 
 El flujo de ramas, los nombres de commits y la lista de revisión están en [`docs/CONVENCIONES.md`](docs/CONVENCIONES.md).
@@ -54,4 +57,4 @@ python -m pytest
 
 ## Estado
 
-Fase 0: preparación del repositorio. Aún no hay funcionalidades implementadas.
+Fase 1: reglas puras iniciales del núcleo en desarrollo, con pruebas unitarias.

@@ -12,9 +12,9 @@ los usuarios, préstamos, devoluciones, reservas y multas, y ofrecer informació
 consistente sobre la disponibilidad de los libros.
 
 El sistema está dirigido a una biblioteca atendida por un equipo reducido y
-accesible desde navegadores web. Los reportes avanzados, las notificaciones y el
-manejo de múltiples ejemplares se plantean como posibles ampliaciones, no como
-requisitos iniciales explícitos.
+accesible desde navegadores web. Los reportes avanzados y las notificaciones se
+plantean como posibles ampliaciones. La primera versión sí manejará múltiples
+ejemplares físicos por título.
 
 ## Actores y permisos
 
@@ -96,27 +96,32 @@ cuando `develop` esté verificada. Los commits siguen
 `tipo(alcance): descripción`, por ejemplo `feat(nucleo): agrega reglas de multa`.
 Las convenciones completas están en [CONVENCIONES.md](CONVENCIONES.md).
 
-## Decisiones por confirmar antes de implementar las reglas afectadas
+## Reglas de dominio acordadas
 
-El análisis define el objetivo y las tecnologías, pero deja algunos detalles de
-comportamiento sin cerrar:
+- **Título y ejemplares:** `Libro` representa la obra del catálogo y cada
+  `Ejemplar` representa una unidad física identificada individualmente. Los
+  préstamos y las reservas se asignan a ejemplares, no al título abstracto.
+- **Solicitud de préstamo:** el Lector crea una solicitud pendiente para un
+  título. El Bibliotecario la aprueba o la rechaza. Aprobarla asigna un ejemplar
+  disponible y registra el préstamo; el cambio del ejemplar y del préstamo
+  deberá persistirse como una operación atómica.
+- **Reservas:** solo se permiten cuando no hay ejemplares disponibles. Se
+  mantiene una cola FIFO por título; un lector no puede tener más de una reserva
+  activa para el mismo título. Al devolverse un ejemplar, se asigna al lector
+  que lleva más tiempo esperando y queda reservado para él; si no hay cola,
+  vuelve a estar disponible.
+- **Multas:** se calculan al devolver un préstamo vencido como días de retraso
+  por tarifa diaria. Una devolución puntual no genera multa. Los importes se
+  representan con precisión decimal y el bibliotecario registra el pago.
+- **Reglas no especificadas:** no se impondrán límites de préstamos o reservas
+  por lector ni bloqueos por multas pendientes hasta que exista un requisito
+  explícito. Las reglas requieren validación de fechas, estados y pertenencia al
+  título correspondiente.
 
-- **Solicitud frente a registro de préstamo:** el Lector solicita un préstamo y
-  el Bibliotecario lo registra formalmente. Hay que precisar si la solicitud
-  tiene estados propios y cómo se acepta o rechaza.
-- **Libro frente a ejemplar:** los estados se describen por libro, mientras que
-  el manejo de múltiples ejemplares queda como ampliación. Se debe confirmar si
-  la primera versión controla un ejemplar por título o varios.
-- **Reservas:** se indica que se reservan libros no disponibles y que se
-  atienden al devolverlos, pero no se especifican orden de cola, vencimiento ni
-  reglas para retirar una reserva.
-- **Reglas operativas:** no se determinan límites de préstamos o reservas por
-  lector ni qué ocurre ante multas pendientes.
-- **Persistencia:** Supabase está seleccionado, pero faltan el esquema de datos,
-  el método de conexión y la configuración del entorno local.
-
-Estas precisiones se resolverán antes de implementar las funcionalidades que
-dependan de ellas; no cambian las decisiones arquitectónicas ya documentadas.
+La capa de negocio implementará estas decisiones como reglas puras. La
+persistencia deberá proteger las operaciones concurrentes con transacciones;
+el esquema y la configuración concreta de Supabase se definirán en una etapa
+posterior.
 
 ## Estado inicial observado
 
@@ -125,5 +130,6 @@ pytest, pero todavía no contiene el código de la aplicación. El README descri
 la estructura y el proceso previsto. El repositorio remoto
 `JulianHenao-Web/Proyeccion-BaseBook` estaba vacío y la carpeta local no tenía
 historial Git al iniciar esta tarea. Se inicializó el historial y se publicaron
-`main`, `develop` y `feature/resumen-proyecto`; la síntesis espera revisión en un
-Pull Request hacia `develop`.
+`main`, `develop` y ramas feature. La síntesis se propuso en el Pull Request #1
+hacia `develop`; el desarrollo del núcleo se realiza en una rama feature
+independiente.
