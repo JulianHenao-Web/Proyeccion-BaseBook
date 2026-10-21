@@ -42,6 +42,8 @@ Prueba-Inicial-BaseBook/
 
 El flujo de ramas, los nombres de commits y la lista de revisión están en [`docs/CONVENCIONES.md`](docs/CONVENCIONES.md).
 
+La síntesis de alcance, roles, requisitos y arquitectura está en [`docs/RESUMEN-PROYECTO.md`](docs/RESUMEN-PROYECTO.md). El análisis detallado original se conserva en [`Proyecto Integrador - BaseBook.md`](Proyecto%20Integrador%20-%20BaseBook.md).
+
 ## Cómo ejecutar las pruebas
 
 ```
