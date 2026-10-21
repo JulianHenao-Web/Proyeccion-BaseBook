@@ -123,5 +123,7 @@ dependan de ellas; no cambian las decisiones arquitectónicas ya documentadas.
 La carpeta de trabajo contiene documentación y `requirements.txt` con Flask y
 pytest, pero todavía no contiene el código de la aplicación. El README describe
 la estructura y el proceso previsto. El repositorio remoto
-`JulianHenao-Web/Proyeccion-BaseBook` fue encontrado vacío durante la preparación
-de esta síntesis; no se ha creado ni publicado historial Git.
+`JulianHenao-Web/Proyeccion-BaseBook` estaba vacío y la carpeta local no tenía
+historial Git al iniciar esta tarea. Se inicializó el historial y se publicaron
+`main`, `develop` y `feature/resumen-proyecto`; la síntesis espera revisión en un
+Pull Request hacia `develop`.
