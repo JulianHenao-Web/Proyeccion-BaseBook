@@ -38,9 +38,14 @@ Prueba-Inicial-BaseBook/
     └── datos/
 ```
 
+El núcleo de negocio ya incluye tipos y reglas iniciales para catálogo,
+ejemplares, préstamos, reservas y multas.
+
 ## Cómo trabajar
 
 El flujo de ramas, los nombres de commits y la lista de revisión están en [`docs/CONVENCIONES.md`](docs/CONVENCIONES.md).
+
+La síntesis de alcance, roles, requisitos y arquitectura está en [`docs/RESUMEN-PROYECTO.md`](docs/RESUMEN-PROYECTO.md). El análisis detallado original se conserva en [`Proyecto Integrador - BaseBook.md`](Proyecto%20Integrador%20-%20BaseBook.md).
 
 ## Cómo ejecutar las pruebas
 
@@ -52,4 +57,4 @@ python -m pytest
 
 ## Estado
 
-Fase 0: preparación del repositorio. Aún no hay funcionalidades implementadas.
+Fase 1: reglas puras iniciales del núcleo en desarrollo, con pruebas unitarias.
